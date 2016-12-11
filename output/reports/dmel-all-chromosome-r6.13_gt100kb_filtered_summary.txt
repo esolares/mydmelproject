@@ -1,0 +1,1 @@
+Total # of Nucleotides: 137057575 bases Total # of Ns: 490385 Total Bases: 137547960 bases
