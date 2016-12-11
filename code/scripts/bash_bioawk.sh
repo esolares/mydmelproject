@@ -4,6 +4,7 @@ INPUT="dmel-all-chromosome-r6.13.fasta"
 PROCDIR="../../data/processed"
 OUTDIR="../../output/reports"
 FIGDIR="../../output/figures"
+GTFFILE="dmel-all-r6.13.gtf"
 
 for i in $(ls $DATADIR/*.fasta)
 	do echo -e "Length\tContig\tAssembly" > ${PROCDIR}/$(basename ${i} .fasta).lengths; bioawk -c fastx '{ print length($seq), $name, "dmel_chrom" }' ${i} | sort -rnk 1,1 >> ${PROCDIR}/$(basename ${i} .fasta).lengths; plotCDF2 ${PROCDIR}/$(basename ${i} .fasta).lengths ${FIGDIR}/$(basename ${i} .fasta).png
@@ -33,4 +34,7 @@ grep -v '^>' $PROCDIR/$(basename $INPUT .fasta)_gt100kb_filtered.fasta | awk 'BE
 ###get gc content per contig
 bioawk -cfastx '{print $name, gc($seq)}' $PROCDIR/$(basename $INPUT .fasta)_lt100kb_filtered.fasta > ${PROCDIR}_lt100kb_filtered_gc_content.txt
 bioawk -cfastx '{print $name, gc($seq)}' $PROCDIR/$(basename $INPUT .fasta)_gt100kb_filtered.fasta > ${PROCDIR}_gt100kb_filtered_gc_content.txt
+
+###count 
+cat $DATADIR/$GTFFILE | cut -f 1 | sort -k1,1 | uniq -c | sort -nr >> $OUTDIR/$(basename $GTFFILE .gtf)_count_per_xsome.txt
 
