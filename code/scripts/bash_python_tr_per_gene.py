@@ -8,7 +8,7 @@ for line in open('../../data/processed/dmel-all-r6.13_exonlengths.txt','r'):
 fout = open('../../output/reports/dmel-all-r6.13_transcripts_per_gene.txt','w')
 
 for key in mygenedict:
-    fout.write(key + '\t' + str(length(mygenedict[key])) + '\n')
+    fout.write(key + '\t' + str(len(mygenedict[key])) + '\n')
 
 fout.close()
 quit()
